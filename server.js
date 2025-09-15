@@ -14,11 +14,7 @@ const users = [
   { email: "ali3@example.com", password: "mypwd789" },
   { email: "emily4@example.com", password: "qwerty12" },
   { email: "mike5@example.com", password: "letmein34" },
-  { email: "anna6@example.com", password: "secure56" },
-  { email: "david7@example.com", password: "abc123" },
-  { email: "lisa8@example.com", password: "superman77" },
-  { email: "tom9@example.com", password: "ilovecoding" },
-  { email: "nora10@example.com", password: "jsrocks" }
+  { email: "anna6@example.com", password: "secure56" }
 ];
 
 const emailSet = new Set(users.map(u => u.email));
