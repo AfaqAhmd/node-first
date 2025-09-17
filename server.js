@@ -8,60 +8,107 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 
 
-const users = [
-  { email: "afaq@gmail.com", password: "pass123" },
-  { email: "afaq23@gmail.com", password: "hello456" },
-  { email: "ali3@example.com", password: "mypwd789" },
-  { email: "emily4@example.com", password: "qwerty12" },
-  { email: "mike5@example.com", password: "letmein34" },
-  { email: "anna6@example.com", password: "secure56" }
-];
+// const users = [
+//   { email: "afaq@gmail.com", password: "pass123" },
+//   { email: "ahmedkhan@gmail.com", password: "hello456" },
+//   { email: "ali@example.com", password: "mypwd789" },
+//   { email: "emily4@example.com", password: "qwerty12" },
+//   { email: "mike5@example.com", password: "letmein34" },
+//   { email: "anna6@example.com", password: "secure56" }
+// ];
 
-const emailSet = new Set(users.map(u => u.email));
-if (emailSet.size !== users.length) {
-  console.error("Duplicate emails found in users array!");
-} else {
-  console.log(" All user emails are unique.");
-}
-
-// ✅ Step 3: Create login API
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-
-  // Find the user
-  const user = users.find(u => u.email === email && u.password === password);
-
-  if (user) {
-    res.send("Login is successfully 🎉");
-  } else {
-    res.send("Login is failed ❌");
-  }
-});
+// const emailSet = new Set(users.map(u => u.email));
+// if (emailSet.size !== users.length) {
+//   console.error("Duplicate emails found in users array!");
+// } else {
+//   console.log(" All user emails are unique.");
+// }
 
 
+// app.post('/login', (req, res) => {
+//   const { email, password } = req.body;
 
-app.get('/', (req, res, next) => {
-    res.send('hello world!');
-})
-app.post('/home', (req, res, next) => {
-    const userAge = req.body.userAge
-    // console.log(userAge);
-    if (userAge > 18) {
-        res.send('You are allow in the web');
-    }else{
-        
-        res.send('You are not allow in the web');
+//   // Find the user
+//   const user = users.find(u => u.email === email && u.password === password);
+
+//   if (user) {
+//     res.send("Login is successfully");
+//   } else {
+//     res.send("Login is failed");
+//   }
+// });
+
+// ---------------------------
+
+
+let userData = [
+    {
+        email: 'ahmer@gmail.com',
+        pass: '12345'
+    },
+    {
+        email: 'ali@gmail.com',
+        pass: '54321'
     }
+]
+
+
+app.post('/signin', (req, res, next) => {
+    const { userEmail, password } = req.body;
+    let isFound = false;
+    console.log(userEmail);
+    console.log(password);
+    if(password.length < 5){
+        return res.send("password length must be at least 5")
+    }
+    for (var i = 0; i < userData.length; i++) {
+        if (userEmail === userData[i].email
+            &&
+            password === userData[i].pass) {
+            isFound = true;
+            return res.send({
+                status: 200,
+                message: 'login successfully'
+            })
+        }
+    }
+
+    if (isFound === false) {
+        res.send({
+                status: 404,
+                message: 'User Not found'
+            })
+    }
+
 })
 
-app.get('/json', (req, res) => {
-    res.json({ message: 'Hello JSON', time: new Date() });
-});
 
-app.get('/user/:id', (req, res) => {
-    const userId = req.params.id;
-    res.send(`User ID is: ${userId}`);
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.post('/home', (req, res, next) => {
+//     const userAge = req.body.userAge
+//     // console.log(userAge);
+//     if (userAge > 18) {
+//         res.send('You are allow in the web');
+//     }else{
+        
+//         res.send('You are not allow in the web');
+//     }
+// })
+
+
 
 
 
