@@ -53,6 +53,28 @@ let userData = [
 ]
 
 
+app.post('/signup', (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.send({ status: 400, message: "Email and password are required" });
+    }
+
+    if (password.length < 5) {
+        return res.send({ status: 400, message: "Password must be at least 5 characters" });
+    }
+
+    // Check if email already exists
+    const existingUser = userData.find(u => u.email === email);
+    if (existingUser) {
+        return res.send({ status: 409, message: "Email already registered" });
+    }
+
+    // Add new user
+    userData.push({ email, password });
+    res.send({ status: 201, message: "User registered successfully" });
+});
+
 app.post('/signin', (req, res, next) => {
     const { userEmail, password } = req.body;
     let isFound = false;
