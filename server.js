@@ -43,11 +43,11 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 let userData = [
     {
-        email: 'ahmer@gmail.com',
+        email: 'afaq@yahoo.com',
         pass: '12345'
     },
     {
-        email: 'ali@gmail.com',
+        email: 'ahmed@gmail.com',
         pass: '54321'
     }
 ]
@@ -76,15 +76,15 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/signin', (req, res, next) => {
-    const { userEmail, password } = req.body;
+    const { email, password } = req.body;
     let isFound = false;
-    console.log(userEmail);
+    console.log(email);
     console.log(password);
     if(password.length < 5){
         return res.send("password length must be at least 5")
     }
     for (var i = 0; i < userData.length; i++) {
-        if (userEmail === userData[i].email
+        if (email === userData[i].email
             &&
             password === userData[i].pass) {
             isFound = true;
