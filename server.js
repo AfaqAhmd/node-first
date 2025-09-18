@@ -1,5 +1,5 @@
-// console.log('hello world')
 const express = require('express');
+const { Status } = require('whatsapp-web.js');
 
 const app = express();
 const PORT = 3000 || process.env.PORT;
@@ -64,13 +64,15 @@ app.post('/signup', (req, res) => {
         return res.send({ status: 400, message: "Password must be at least 5 characters" });
     }
 
-    // Check if email already exists
-    const existingUser = userData.find(u => u.email === email);
-    if (existingUser) {
-        return res.send({ status: 409, message: "Email already registered" });
+
+    for(let i=0;i<userData.length;i++){
+        if(userData[i].email===email)
+        {
+            return res.send({Status:409,message:"Email already registered"});
+        }
     }
 
-    // Add new user
+
     userData.push({ email, password });
     res.send({ status: 201, message: "User registered successfully" });
 });
